@@ -1,0 +1,5 @@
+package-lock*
+*psd
+node_*
+.env
+git 
