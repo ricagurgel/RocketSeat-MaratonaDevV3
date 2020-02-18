@@ -38,41 +38,18 @@
         <main>
             <h2>Últimos <span>Doadores</span></h2>
             <section class='donors'>
-                <div class='donor'>
-                    <div class='blood'>
-                        <p>KK</p>
-                    </div>
-                    <div class='name'>
-                        <p>nome</p>
-                    </div>
 
-                </div>
+                {% for donor in donors %}
                 <div class='donor'>
                     <div class='blood'>
-                        <p>KK</p>
+                        <p>{{donor.blood}}</p>
                     </div>
                     <div class='name'>
-                        <p>nome</p>
+                        <p>{{donor.name}}</p>
                     </div>
                 </div>
-                <div class='donor'>
-                    <div class='blood'>
-                        <p>KK</p>
-                    </div>
-                    <div class='name'>
-                        <p>nome</p>
-                    </div>
+                {%endfor%}
 
-                </div>
-                <div class='donor'>
-                    <div class='blood'>
-                        <p>KK</p>
-                    </div>
-                    <div class='name'>
-                        <p>nome</p>
-                    </div>
-
-                </div>
             </section>
         </main>
         <footer>
