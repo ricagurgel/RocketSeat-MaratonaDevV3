@@ -5,6 +5,7 @@
 
         * {
             box-sizing: border-box;
+            
         }
         body {
             background-color: rgb(207, 212, 212);
@@ -44,10 +45,10 @@
         }
         footer {
             margin-top: auto;
+            padding: 3px 0px 0px 0px;
+            height: 32px;
             margin-bottom: 0px;
-            padding: 5px 0 5px 0;
             font-size: 14px;
-            font-weight: bold;
             color: #000000dd;
             background-color: #ffffff;
         }
@@ -65,7 +66,7 @@
         main .donors {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr 1fr; /* ----> isso é legal */
-            margin-bottom: 10px;
+            margin: 0px 70px 10px 70px;
         }
 
         .blood {

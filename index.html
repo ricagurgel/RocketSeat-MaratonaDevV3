@@ -23,13 +23,15 @@
             <p>1 doação... 3 vidas salvas</p>
             <p>Mais de 38mil doações são necessárias todos os dias</p>
             <p>Apenas 1,9% da população brasileira doa sangue</p>
-            <button>Quero Ajudar</button>
-
+        <!-- Criei a função getFocus (ver script.js) para jogar
+             o cursos de digitação já em um campo do formulário.
+             Nesse caso, o campo "name" que é o 1º campo do form -->
+        <button onclick="getFocus('name')">Quero Ajudar</button>
         </header>
         <section class="form hide">
             <h2>Entre na lista de doadores</h2>
-            <form action="/" method="post">
-                <input type="text" name="name" placeholder="Nome Completo:">
+            <form name="myform" action="/" onsubmit="return validateForm()" method="post" required>
+                <input type="text" name="name" placeholder="Nome Completo:" id="name">
                 <input type="text" name="email" placeholder="Email:">
                 <input type="text" name="blood" placeholder="Tipo Sanguineo:">
                 <button>Quero Ajudar</button>
@@ -52,8 +54,7 @@
 
             </section>
         </main>
-        <footer>
-            Com ❤️ Rocketseat & Ricardo Gurgel @ricagurgel
+        <footer><class="ft">Com ❤️ Rocketseat & Ricardo Gurgel @ricagurgel</class>
         </footer>
     </section>
 

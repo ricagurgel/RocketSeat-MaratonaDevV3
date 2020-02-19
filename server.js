@@ -1,6 +1,13 @@
 require('dotenv').config()
 
-//postgre
+//
+// Condigurações do Postgre
+//
+// Adicionado segurança extra de dados, 
+// colocando as credenciais do Postgres
+// dentro do ambiente .env (criar arquivo .env usando o model.env)
+//
+/////////////////////////////////////
 const { Pool } = require('pg') 
 const db = new Pool({
     user: process.env.PG_USER,
@@ -10,7 +17,6 @@ const db = new Pool({
     database: process.env.PG_DB
 })
  
-
 // Configurar servidor
 const express = require('express')
 const server = express()
@@ -29,15 +35,6 @@ nunjucks.configure('./', {
     noCache: true
 })
 
-// Isto é um  Array
-var donors = [
-    {   name: "ops!",
-        blood: ""
-    }
-]
-
-
-
 // Iniciar servidor
 server.listen(port, function(a,b,c){
     console.log('\n\n---------------------------------')
@@ -45,36 +42,51 @@ server.listen(port, function(a,b,c){
 
 })
 
-
-// Apresentar página (no caso, renderiza a index.html, usando nunjucks)
-server.get('/', function (req, res, next) {
-    db.query('select * from donors', function(err,result){
-        if(err) {res.send('erro no db')} 
-        var donors = result.rows
-        return res.render('index.html', { donors })
-    })
-
+//
+//  Apresenta os últimos doadores na página
+//
+//  Atualizações:
+//      1. ordem descendente por inclusão, ou seja apresenta do 
+//      cadastro mais recente, para o mais antigo
+//
+//      2. limite para apresentar os 12 últios cadastros (3 linhas)
+//
+//      3. await e catch error
+////////////////////////////////////////////////////////////////////////////
+server.get('/', async (req, res, next) => {
+        await db.query('select * from donors order by id desc limit 12', function(err, result) {
+            if (err) {
+                console.log(`!!! ${err}`)
+                return res.status(400).send(`<b>deu ruim:</b> ${err}`)
+            } else {
+                var donors = result.rows
+                return res.render('index.html', { donors })
+            }
+        })
 })
 
 
-server.post('/', function (req,res,next){
-    
+
+//
+//  Insere novo cadastro no DB
+//
+//  Atualizações:
+//      1. await e catch error
+//
+//
+////////////////////////////////////////////////////////////////////////////
+server.post('/', async (req,res,next) => {
     var name = req.body.name 
     var blood = req.body.blood
     var email = req.body.email
+    var query = `insert into donors ("name","blood","email") values ('${name}','${blood}','${email}')`
     if (name,blood,email ==""){
-        console.log('não pode estar vazio')
-        return res.send('Todos campos são obrigatórios')
+        res.send(`<b>Erro ao inserir dados<b> ${err}`)
     }
-    var  query = `insert into donors ("name","blood","email") values ('${name}','${blood}','${email}')`
-    db.query(query, function(err){
-        if (err) return res.send('erro no banco de dados')
-    })
-    donors.push({
-        name: name,
-        blood: blood
-    })
-
-    return res.redirect('/')
-
+    await db.query(query, function(err){
+        if (err) {
+            return res.send(`<b>Erro ao inserir dados<b> ${err}`)
+        } else {
+            return res.redirect('/')
+        }})
 })
