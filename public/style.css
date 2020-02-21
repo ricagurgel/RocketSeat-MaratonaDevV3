@@ -3,10 +3,21 @@
             GLOBAL
         <- */
 
+        a:link, a:visited, a:hover, a:active {
+            color: rgb(245, 229, 160);
+        }
+
         * {
             box-sizing: border-box;
             
         }
+
+        input:focus,select:focus,textarea:focus,button:focus {
+            outline: none;
+            background-color: #00bd3f;
+            color: #ffffffcc;
+        }
+
         body {
             background-color: rgb(207, 212, 212);
             display: flex;
@@ -112,12 +123,20 @@
             
         }
 
-        .form h2 {
-            text-align: right;
-            font-size: 22px;
-            padding-bottom: 20px;
-            color: rgb(255, 235, 235, 90)
+        .thanks {
+            align-self: center;
+            display: grid;
+            width: 50vmax;
+            grid-template-columns: 1fr; /* ----> isso é legal */
+            align-items: center;
+            gap: 30px;
+            background-color: #e71c37;
+            padding: 18px 70px;
+            border-radius: 40px;
+            color: #ffffff
+            
         }
+
 
 
         form input {

@@ -1,0 +1,15 @@
+            <h2>Últimos <span>Doadores</span></h2>
+            <section class='donors'>
+
+                {% for donor in donors %}
+                <div class='donor'>
+                    <div class='blood'>
+                        <p>{{donor.blood}}</p>
+                    </div>
+                    <div class='name'>
+                        <p>{{donor.name}}</p>
+                    </div>
+                </div>
+                {%endfor%}
+
+            </section>
