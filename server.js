@@ -20,12 +20,21 @@ const db = new Pool({
 // Configurar servidor
 const express = require('express')
 const server = express()
+const templateDir='./.template_pages/'
 port = process.env.PORT || 3000
 
 // incluir arquivos "não html" no server (imagens, css, .js, etc) 
 server.use(express.static('public'))
 
-// incluir html.BODY no nunjucks
+//
+// incluir os dados de <body> no request (req)
+//
+//
+// PORQUE SE CHAMA (REQ,RES,NEXT)?
+// 1. Tudo aquilo que o back passa para o front (res) -> respostas/response
+// 2. Tudo aquilo que o front passa para o back (req) -> solicitações/request (dados que o front está mandando para o back)
+//
+///////////////////////////////////////////////////////
 server.use(express.urlencoded({extendend: true}))
 
 //configurar template
@@ -34,6 +43,7 @@ nunjucks.configure('./', {
     express: server,
     noCache: true
 })
+
 
 // Iniciar servidor
 server.listen(port, function(a,b,c){
@@ -54,15 +64,38 @@ server.listen(port, function(a,b,c){
 //      3. await e catch error
 ////////////////////////////////////////////////////////////////////////////
 server.get('/', async (req, res, next) => {
+   
         await db.query('select * from donors order by id desc limit 12', function(err, result) {
             if (err) {
                 console.log(`!!! ${err}`)
                 return res.status(400).send(`<b>deu ruim:</b> ${err}`)
             } else {
                 var donors = result.rows
-                return res.render('index.html', { donors })
+                var html = {
+                    header: `${templateDir}header.html`,
+                    section: `${templateDir}section.html`,
+                    main: `${templateDir}main.html` }
+                return res.render('index.html', { donors,html })
             }
         })
+})
+
+
+server.get('/done', async (req, res, next) => {
+var html = {
+    header: `${templateDir}header.html`,
+    section: `${templateDir}thanks.html`,
+    main: `${templateDir}main.html`
+}
+    await db.query('select * from donors order by id desc limit 12', function (err, result) {
+        if (err) {
+            console.log(`!!! ${err}`)
+            return res.status(400).send(`<b>deu ruim:</b> ${err}`)
+        } else {
+            var donors = result.rows
+            return res.render('index.html', { donors, html })
+        }
+    })
 })
 
 
@@ -76,6 +109,9 @@ server.get('/', async (req, res, next) => {
 //
 ////////////////////////////////////////////////////////////////////////////
 server.post('/', async (req,res,next) => {
+    if(typeof req.body == 'undefined') {
+        return res.send(`<b>Erro ao transmitir dados do formulário (body-parser erro)<b>`)
+    }
     var name = req.body.name 
     var blood = req.body.blood
     var email = req.body.email
@@ -87,6 +123,6 @@ server.post('/', async (req,res,next) => {
         if (err) {
             return res.send(`<b>Erro ao inserir dados<b> ${err}`)
         } else {
-            return res.redirect('/')
+            return res.redirect('/done')
         }})
 })
