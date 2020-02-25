@@ -3,6 +3,15 @@ Repositório da 3ª MaratonaDev da RocketSeat, com o instrutor Mayk Brito.
 Start em programação. Compartilhando o básico da programação HTML/CSS/Javascript e Node.js
 https://rocketseat.com.br/maratonadev/inscricao/3.0
 
+# Versão Master:
+1. Criação de um .html do zero, utilizando o Visual Studio Code
+2. Criação de um .css interativo com o .html do zero, utilizando o Visual Studio Code
+3. Criação de um stript.js que cria a interação entre: ações do usuário-> .html X .css
+4. Criação de um servidor web utilizando o Node.js
+   - Configuração dos end-points
+   - Configuração do banco de dados (Postgres)
+   - Configuração do template-engine (Nunjucks)
+
 # Descubra o caminho para dominar a programação do zero
 
 <span>Temas Abordados:</span><br>
