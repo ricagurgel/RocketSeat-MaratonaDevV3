@@ -20,3 +20,13 @@ https://rocketseat.com.br/maratonadev/inscricao/3.0
   -Entendendo a utilização do Javascript em uma página HTML, usando funções atreladas ao CSS<br>
   -Instalando Node.js e programando seu próprio servidor<br>
   -Criando um formulário que insere novos doadores dentro de um banco de dados<br>
+  
+  
+  
+  # Criado o Database e Tabela
+  
+  1. Instale o Postgres
+  2. Crie um database chamado "doe"
+  3. Crie uma tabela chamada "donors"<br> `create table donors(id SERIAL PRIMARY KEY, name VARCHAR NOT NULL, email VARCHAR NOT NULL, blood VARCHAR NOT NULL);`
+  4. abra o terminal na pasta do projeto e inicialize o servidor<br>`npm start`
+  5. Pronto !!! Agora é só acessar o servidor<br>[http://localhost:3000/](http://localhost:3000/)
